@@ -13,7 +13,7 @@ public interface UserService {
 
     public Long insert(User user);
 
-    public User findByUsername(@Param("username") String username);
+    public User findByUsername(@Param("userName") String userName);
 
     public List<User> findAll();
 }

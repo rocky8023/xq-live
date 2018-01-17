@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,8 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    public User getUserbyId(@PathVariable("id") Long id) {
         User user = user = userService.getUserById(id);
         return user;
     }
@@ -41,7 +42,7 @@ public class UserController {
         return id;
     }
 
-        /*public UserController(UserRepository myUserRepository,
+/*        public UserController(UserRepository myUserRepository,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.applicationUserRepository = myUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -67,6 +68,13 @@ public class UserController {
             throw new UsernameIsExitedException("用户已经存在~");
         }
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()).getBytes()));
+        user.setCreateTime(new Date());
         userService.insert(user);
     }
+
+//    @RequestMapping(value = "/get/{userName}", method = RequestMethod.GET)
+//    public User getUserByName(@PathVariable("userName") String userName){
+//        User user = userService.findByUsername(userName);
+//        return user;
+//    }
 }
